@@ -4,6 +4,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.logging.Handler;
 
 public class SensorService extends Service implements SensorEventListener {
 
@@ -34,7 +37,7 @@ public class SensorService extends Service implements SensorEventListener {
     @Override
     public void onCreate() {
         Log.d("SensorService", "Hello");
-        Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -44,34 +47,31 @@ public class SensorService extends Service implements SensorEventListener {
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        long start = System.currentTimeMillis();
+    public void onSensorChanged(final SensorEvent event) {
+        final long start = System.currentTimeMillis();
 
-        float i = event.values[0];
-        Log.d("i", Float.toString(i));
-
-        if (i < 3.0) {
-//            Toast.makeText(this, "Hello", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, AdminActivity.Controller.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
-
-//        while (i < 3.0) {
-//            if (System.currentTimeMillis() - start > 1500) {
-//                Toast.makeText(this, "Hello", Toast.LENGTH_LONG).show();
-//            }
-//        }
+        final Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (event.values[0] < 3.0) {
+                    if (System.currentTimeMillis() - start > 275) {
+                        DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
+                        mDPM.lockNow();
+                    }
+                }
+            }
+        });
+        t.start();
     }
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
         sensorManager.unregisterListener(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);

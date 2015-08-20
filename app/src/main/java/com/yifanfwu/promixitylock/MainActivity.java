@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
-        mDeviceAdminSample = new ComponentName(this, AdminActivity.class);
+        mDeviceAdminSample = new ComponentName(this, SensorAdminReceiver.class);
 
         boolean active = mDPM.isAdminActive(mDeviceAdminSample);
         if (!active) { // Without permission
@@ -29,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
             adminIntent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mDeviceAdminSample);
             startActivityForResult(adminIntent, 1);
         }
-
-
 
         startService(new Intent(this, SensorService.class));
 

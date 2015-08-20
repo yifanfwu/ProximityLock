@@ -21,14 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AdminActivity$Controller"
-            android:label="Proximity Lock">
-        </activity>
         <service
             android:enabled="true"
             android:name=".SensorService" />
-        <receiver android:name=".AdminActivity"
+        <receiver android:name=".SensorAdminReceiver"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
