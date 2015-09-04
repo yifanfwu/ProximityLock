@@ -23,11 +23,7 @@ import java.util.logging.Handler;
 public class SensorService extends Service implements SensorEventListener {
 
     Sensor proximitySensor;
-    Sensor proxSensor;
     SensorManager sensorManager;
-    SensorManager sm;
-
-    TextView textView;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,14 +32,10 @@ public class SensorService extends Service implements SensorEventListener {
 
     @Override
     public void onCreate() {
-        Log.d("SensorService", "Hello");
-//        Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

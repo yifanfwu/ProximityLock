@@ -4,10 +4,14 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +33,30 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(adminIntent, 1);
         }
 
-        startService(new Intent(this, SensorService.class));
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        final Button button = (Button) findViewById(R.id.button);
+        if (preferences.getBoolean("enabled", false)) {
+            button.setText(getResources().getString(R.string.button_disable));
+        } else {
+            button.setText(getResources().getString(R.string.button_enable));
+        }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (preferences.getBoolean("enabled", false)) {
+                    button.setText(getResources().getString(R.string.button_enable));
+                    preferences.edit().putBoolean("enabled", false).apply();
+                    stopService(new Intent(getApplicationContext(), SensorService.class));
+                } else {
+                    button.setText(getResources().getString(R.string.button_disable));
+                    preferences.edit().putBoolean("enabled", true).apply();
+                    startService(new Intent(getApplicationContext(), SensorService.class));
+                }
+            }
+        });
 
     }
 

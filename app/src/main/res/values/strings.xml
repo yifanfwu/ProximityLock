@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="button_disable">DISABLE</string>
+    <string name="button_enable">ENABLE</string>
+
+    <string name="enabled_title">Proximity lock enabled</string>
+
 </resources>
