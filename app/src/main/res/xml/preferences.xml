@@ -5,4 +5,10 @@
         android:title="@string/enabled_title"
         android:defaultValue="false"
         />
+    <EditTextPreference
+        android:key="timeout"
+        android:title="@string/timeout_title"
+        android:defaultValue="275"
+        android:inputType="number"
+        />
 </PreferenceScreen>

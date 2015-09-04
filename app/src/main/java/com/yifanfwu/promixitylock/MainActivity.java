@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
         mDeviceAdminSample = new ComponentName(this, SensorAdminReceiver.class);
@@ -39,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.button);
         if (preferences.getBoolean("enabled", false)) {
             button.setText(getResources().getString(R.string.button_disable));
+            startService(new Intent(getApplicationContext(), SensorService.class));
         } else {
             button.setText(getResources().getString(R.string.button_enable));
+            stopService(new Intent(getApplicationContext(), SensorService.class));
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +67,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        final Button button = (Button) findViewById(R.id.button);
+        if (preferences.getBoolean("enabled", false)) {
+            button.setText(getResources().getString(R.string.button_disable));
+            startService(new Intent(getApplicationContext(), SensorService.class));
+        } else {
+            button.setText(getResources().getString(R.string.button_enable));
+            stopService(new Intent(getApplicationContext(), SensorService.class));
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -69,14 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

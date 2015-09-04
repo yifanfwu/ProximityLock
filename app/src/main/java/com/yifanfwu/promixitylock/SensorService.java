@@ -7,11 +7,13 @@ import android.app.Service;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.TextView;
@@ -42,11 +44,14 @@ public class SensorService extends Service implements SensorEventListener {
     public void onSensorChanged(final SensorEvent event) {
         final long start = System.currentTimeMillis();
 
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final int timeout = Integer.parseInt(preferences.getString("timeout", "275"));
+
         final Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (event.values[0] < 3.0) {
-                    if (System.currentTimeMillis() - start > 275) {
+                    if (System.currentTimeMillis() - start > timeout) {
                         DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
                         mDPM.lockNow();
                     }
