@@ -1,7 +1,6 @@
-package com.yifanfwu.promixitylock;
+package com.yifanfwu.proximitylock;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.app.admin.DevicePolicyManager;
@@ -15,12 +14,6 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Date;
-import java.util.logging.Handler;
 
 public class SensorService extends Service implements SensorEventListener {
 

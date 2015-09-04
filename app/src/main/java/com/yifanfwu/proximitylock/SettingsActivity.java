@@ -1,4 +1,4 @@
-package com.yifanfwu.promixitylock;
+package com.yifanfwu.proximitylock;
 
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;

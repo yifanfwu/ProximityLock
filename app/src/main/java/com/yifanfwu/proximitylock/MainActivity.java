@@ -1,4 +1,4 @@
-package com.yifanfwu.promixitylock;
+package com.yifanfwu.proximitylock;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;

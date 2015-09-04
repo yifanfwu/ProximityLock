@@ -1,12 +1,8 @@
-package com.yifanfwu.promixitylock;
+package com.yifanfwu.proximitylock;
 
-import android.app.Activity;
 import android.app.admin.DeviceAdminReceiver;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 public class SensorAdminReceiver extends DeviceAdminReceiver {

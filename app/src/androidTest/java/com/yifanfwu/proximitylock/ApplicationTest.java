@@ -1,4 +1,4 @@
-package com.yifanfwu.promixitylock;
+package com.yifanfwu.proximitylock;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

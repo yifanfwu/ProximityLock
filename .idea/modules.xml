@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PromixityLock.iml" filepath="$PROJECT_DIR$/PromixityLock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProximityLock.iml" filepath="$PROJECT_DIR$/ProximityLock.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

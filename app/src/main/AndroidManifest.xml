@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yifanfwu.promixitylock">
+    package="com.yifanfwu.proximitylock">
 
     <uses-feature
         android:name="android.hardware.sensor.proximity"
@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.yifanfwu.proximitylock.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,14 +20,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.yifanfwu.proximitylock.SettingsActivity"
             android:label="@string/settings_title"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.yifanfwu.proximitylock.MainActivity" />
         <service
-            android:name=".SensorService"
+            android:name="com.yifanfwu.proximitylock.SensorService"
             android:enabled="true" />
         <receiver
-            android:name=".SensorAdminReceiver"
+            android:name="com.yifanfwu.proximitylock.SensorAdminReceiver"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
