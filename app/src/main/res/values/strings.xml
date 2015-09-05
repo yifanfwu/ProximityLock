@@ -10,6 +10,7 @@
 
     <string name="enabled_title">Proximity lock enabled</string>
     <string name="timeout_title">Timeout (ms)</string>
+    <string name="persistent_title">Persistent notification</string>
 
     <string name="description">Proximity Lock allows the user to lock their device by simply tapping
     their finger on the proximity sensor (usually located adjacent to the earpiece).</string>

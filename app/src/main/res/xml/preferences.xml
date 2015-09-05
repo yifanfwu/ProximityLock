@@ -5,6 +5,11 @@
         android:title="@string/enabled_title"
         android:defaultValue="false"
         />
+    <SwitchPreference
+        android:key="persistent"
+        android:title="@string/persistent_title"
+        android:defaultValue="true"
+    />
     <EditTextPreference
         android:key="timeout"
         android:title="@string/timeout_title"

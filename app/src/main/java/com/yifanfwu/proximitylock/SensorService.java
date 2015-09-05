@@ -43,7 +43,7 @@ public class SensorService extends Service implements SensorEventListener {
         final Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (event.values[0] < 3.0) {
+                while (event.values[0] == 1.0) {
                     if (System.currentTimeMillis() - start > timeout) {
                         DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
                         mDPM.lockNow();
@@ -66,18 +66,22 @@ public class SensorService extends Service implements SensorEventListener {
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Intent temp = new Intent(SensorService.this, MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(SensorService.this, 0, temp, 0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Proximity Lock")
-                .setContentText("Touch proximity sensor to lock")
-                .setAutoCancel(true)
-                .setOngoing(true)
-                .setContentIntent(pIntent);
-        Notification barNotif = builder.build();
-        this.startForeground(1, barNotif);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final boolean persistent = preferences.getBoolean("persistent", true);
+
+        if (persistent) {
+            Intent temp = new Intent(SensorService.this, MainActivity.class);
+            PendingIntent pIntent = PendingIntent.getActivity(SensorService.this, 0, temp, 0);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setContentTitle("Proximity Lock")
+                    .setContentText("Touch proximity sensor to lock")
+                    .setAutoCancel(true)
+                    .setOngoing(true)
+                    .setContentIntent(pIntent);
+            Notification barNotif = builder.build();
+            this.startForeground(1, barNotif);
+        }
 
         return Service.START_STICKY;
     }

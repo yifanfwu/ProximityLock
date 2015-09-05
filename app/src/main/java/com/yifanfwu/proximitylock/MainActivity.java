@@ -80,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
             button.setText(getResources().getString(R.string.button_enable));
             stopService(new Intent(getApplicationContext(), SensorService.class));
         }
+
+        if (preferences.getBoolean("persistent", true) && preferences.getBoolean("enabled", false)) {
+            stopService(new Intent(getApplicationContext(), SensorService.class));
+            startService(new Intent(getApplicationContext(), SensorService.class));
+        } else if (!preferences.getBoolean("persistent", true) && preferences.getBoolean("enabled", false)) {
+            stopService(new Intent(getApplicationContext(), SensorService.class));
+            startService(new Intent(getApplicationContext(), SensorService.class));
+        }
     }
 
     @Override
