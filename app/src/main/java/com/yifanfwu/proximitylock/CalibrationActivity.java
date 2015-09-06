@@ -1,5 +1,6 @@
 package com.yifanfwu.proximitylock;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -28,6 +29,9 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calibration);
 
+        Intent intent = new Intent(this, SensorService.class);
+        stopService(intent);
+
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -46,6 +50,7 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

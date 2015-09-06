@@ -37,13 +37,14 @@ public class SensorService extends Service implements SensorEventListener {
     public void onSensorChanged(final SensorEvent event) {
         final long start = System.currentTimeMillis();
 
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final int timeout = Integer.parseInt(preferences.getString("timeout", "275"));
+        final float calibration = Float.parseFloat(preferences.getString("calibration","0.0"));
 
         final Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (event.values[0] == 1.0) {
+                while (event.values[0] == calibration) {
                     if (System.currentTimeMillis() - start > timeout) {
                         DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
                         mDPM.lockNow();

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         tools:text="@string/hello_world"
-        android:textSize="48sp"
+        android:textSize="56sp"
         android:layout_marginTop="40dp"/>
 
     <TextView
@@ -36,7 +36,7 @@
 
     <Button
         android:id="@+id/calibrate_button"
-        android:layout_width="wrap_content"
+        android:layout_width="104dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"

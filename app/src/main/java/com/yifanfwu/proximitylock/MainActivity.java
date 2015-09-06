@@ -38,7 +38,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(this, R.xml.welcome_preference, false);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (preferences.getBoolean("welcome", true)) {
+            preferences.edit().putBoolean("welcome", false).apply();
+            Intent intent = new Intent (this, CalibrationActivity.class);
+            startActivity(intent);
+        }
 
         final Button button = (Button) findViewById(R.id.enable);
         if (preferences.getBoolean("enabled", false)) {
