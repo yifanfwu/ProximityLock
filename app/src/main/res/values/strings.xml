@@ -7,13 +7,18 @@
 
     <string name="button_disable">DISABLE</string>
     <string name="button_enable">ENABLE</string>
+    <string name="button_calibrate">CALIBRATE</string>
+    <string name="calibrate">CALIBRATE</string>
 
     <string name="enabled_title">Proximity lock enabled</string>
     <string name="timeout_title">Timeout (ms)</string>
     <string name="persistent_title">Persistent notification</string>
+    <string name="calibration_title">Calibration</string>
 
     <string name="description">Proximity Lock allows the user to lock their device by simply tapping
     their finger on the proximity sensor (usually located adjacent to the earpiece).</string>
+    <string name="calibrate_description">Press \'CALIBRATE\' when your finger is touching the proximity sensor.</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_calibration">Calibration</string>
 
 </resources>

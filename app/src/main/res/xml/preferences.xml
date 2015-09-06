@@ -16,4 +16,11 @@
         android:defaultValue="275"
         android:inputType="number"
         />
+    <EditTextPreference
+        android:key="calibration"
+        android:title="@string/calibration_title"
+        android:defaultValue="0.0"
+        android:inputType="number"
+        android:numeric="decimal"
+        />
 </PreferenceScreen>

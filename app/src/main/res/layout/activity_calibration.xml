@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context="com.yifanfwu.proximitylock.CalibrationActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,28 +17,29 @@
         />
 
     <TextView
-        android:id="@+id/description"
-        android:text="@string/description"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center_horizontal"
+        android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="400dp"
-        android:layout_margin="40dp" />
+        android:layout_gravity="center_horizontal"
+        tools:text="@string/hello_world"
+        android:textSize="48sp"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:maxWidth="240dp"
+        android:layout_height="wrap_content"
+        android:text="@string/calibrate_description"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="40dp"/>
 
     <Button
-        android:id="@+id/enable"
-        android:layout_width="104dp"
+        android:id="@+id/calibrate_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_enable"
-        android:layout_gravity="center_horizontal"/>
-
-    <Button
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
-        android:text="@string/calibrate"
-        android:layout_marginTop="24dp"
-        android:id="@+id/calibrate"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_calibrate" />
 
 </LinearLayout>

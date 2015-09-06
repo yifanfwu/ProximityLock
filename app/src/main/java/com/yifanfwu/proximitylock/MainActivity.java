@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final Button button = (Button) findViewById(R.id.button);
+        final Button button = (Button) findViewById(R.id.enable);
         if (preferences.getBoolean("enabled", false)) {
             button.setText(getResources().getString(R.string.button_disable));
             startService(new Intent(getApplicationContext(), SensorService.class));
@@ -64,15 +64,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button calibrate = (Button) findViewById(R.id.calibrate);
+        calibrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CalibrationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final Button button = (Button) findViewById(R.id.button);
+        final Button button = (Button) findViewById(R.id.enable);
         if (preferences.getBoolean("enabled", false)) {
             button.setText(getResources().getString(R.string.button_disable));
             startService(new Intent(getApplicationContext(), SensorService.class));
