@@ -56,13 +56,11 @@ public class SensorService extends Service implements SensorEventListener {
     }
     @Override
     public void onDestroy() {
-//        Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
         sensorManager.unregisterListener(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);

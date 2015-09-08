@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         final Button button = (Button) findViewById(R.id.enable);
-        if (preferences.getBoolean("enabled", false)) {
+        if (preferences.getBoolean("enabled", true)) {
             button.setText(getResources().getString(R.string.button_disable));
             startService(new Intent(getApplicationContext(), SensorService.class));
         } else {
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (preferences.getBoolean("enabled", false)) {
+                if (preferences.getBoolean("enabled", true)) {
                     button.setText(getResources().getString(R.string.button_enable));
                     preferences.edit().putBoolean("enabled", false).apply();
                     stopService(new Intent(getApplicationContext(), SensorService.class));
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         final Button button = (Button) findViewById(R.id.enable);
-        if (preferences.getBoolean("enabled", false)) {
+        if (preferences.getBoolean("enabled", true)) {
             button.setText(getResources().getString(R.string.button_disable));
             startService(new Intent(getApplicationContext(), SensorService.class));
         } else {
@@ -96,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
             stopService(new Intent(getApplicationContext(), SensorService.class));
         }
 
-        if (preferences.getBoolean("persistent", true) && preferences.getBoolean("enabled", false)) {
+        if (preferences.getBoolean("persistent", true) && preferences.getBoolean("enabled", true)) {
             stopService(new Intent(getApplicationContext(), SensorService.class));
             startService(new Intent(getApplicationContext(), SensorService.class));
-        } else if (!preferences.getBoolean("persistent", true) && preferences.getBoolean("enabled", false)) {
+        } else if (!preferences.getBoolean("persistent", true) && preferences.getBoolean("enabled", true)) {
             stopService(new Intent(getApplicationContext(), SensorService.class));
             startService(new Intent(getApplicationContext(), SensorService.class));
         }
