@@ -17,22 +17,42 @@
         />
 
     <TextView
+        android:id="@+id/value_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/value_description"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
         android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         tools:text="@string/hello_world"
-        android:textSize="56sp"
-        android:layout_marginTop="40dp"/>
+        android:textSize="56sp" />
 
     <TextView
+        android:id="@+id/description"
         android:layout_width="wrap_content"
-        android:maxWidth="240dp"
+        android:maxWidth="256dp"
         android:layout_height="wrap_content"
         android:text="@string/calibrate_description"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="wrap_content"
+        android:maxWidth="256dp"
+        android:layout_height="wrap_content"
+        android:text="@string/calibrate_warning"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="16dp"/>
 
     <Button
         android:id="@+id/calibrate_button"

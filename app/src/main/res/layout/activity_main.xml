@@ -1,15 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/primary"
         android:elevation="4dp"
         app:elevation="4dp"
@@ -23,6 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
         android:maxWidth="400dp"
         android:layout_margin="40dp" />
 
@@ -30,15 +31,17 @@
         android:id="@+id/enable"
         android:layout_width="104dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/description"
         android:text="@string/button_enable"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="104dp"
         android:layout_height="wrap_content"
+        android:layout_margin="40dp"
         android:text="@string/calibrate"
-        android:layout_marginTop="24dp"
+        android:layout_alignParentBottom="true"
         android:id="@+id/calibrate"
-        android:layout_gravity="center_horizontal" />
+        android:layout_centerHorizontal="true" />
 
-</LinearLayout>
+</RelativeLayout>

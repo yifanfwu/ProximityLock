@@ -3,6 +3,8 @@
     package="com.yifanfwu.proximitylock" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
 
     <uses-feature
         android:name="android.hardware.sensor.proximity"
@@ -56,18 +58,17 @@
 
         <receiver
             android:name=".BootReceiver"
-            android:enabled="true"
-            android:exported="true" >
+            android:enabled="true" >
+        </receiver>
+        <receiver
+            android:name=".PhoneCallReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
         </receiver>
     </application>
 
-</manifest> <!-- <manifest xmlns:android="http://schemas.android.com/apk/res/android" > -->
-<!-- <application> -->
-<!-- <activity android:name="com.yifanfwu.promixitylock.SettingsActivity" -->
-<!-- android:label="@string/title_activity_settings" -->
-<!-- android:parentActivityName="com.yifanfwu.promixitylock.MainActivity"> -->
-<!-- <meta-data android:name="android.support.PARENT_ACTIVITY" -->
-<!-- android:value="com.yifanfwu.promixitylock.MainActivity" /> -->
-<!-- </activity> -->
-<!-- </application> -->
-<!-- </manifest> -->
+</manifest>

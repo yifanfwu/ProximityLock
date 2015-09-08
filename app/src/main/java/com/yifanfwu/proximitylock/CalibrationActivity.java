@@ -45,6 +45,9 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 preferences.edit().putString("calibration", Float.toString(calibration)).apply();
                 Toast.makeText(getApplicationContext(), "Sensor calibrated: " + Float.toString(calibration), Toast.LENGTH_SHORT).show();
+
+                TextView description = (TextView) findViewById(R.id.description);
+                description.setText(getResources().getString(R.string.calibrate_back));
             }
         });
 

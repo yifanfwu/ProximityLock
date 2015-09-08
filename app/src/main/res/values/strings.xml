@@ -17,7 +17,11 @@
 
     <string name="description">Proximity Lock allows the user to lock their device by simply tapping
     their finger on the proximity sensor (usually located adjacent to the earpiece).</string>
-    <string name="calibrate_description">While holding your finger on your device\'s proximity sensor, press the button below.</string>
+    <string name="calibrate_description">While holding a finger on your device\'s proximity sensor, press the button below.</string>
+    <string name="calibrate_warning">WARNING: Calibrating without touching the sensor may cause problems.</string>
+    <string name="calibrate_back">Press the back arrow to continue</string>
+    <string name="value_description">Proximity sensor value:</string>
+
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_calibration">Calibration</string>
 
