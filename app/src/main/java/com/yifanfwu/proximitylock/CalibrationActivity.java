@@ -48,6 +48,7 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
 
                 TextView description = (TextView) findViewById(R.id.description);
                 description.setText(getResources().getString(R.string.calibrate_back));
+                description.setTextAppearance(getApplicationContext(), R.style.bold_text);
             }
         });
 

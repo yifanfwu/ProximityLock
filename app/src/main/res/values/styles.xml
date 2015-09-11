@@ -6,4 +6,8 @@
         <item name="android:colorPrimaryDark">@color/primary_dark</item>
     </style>
 
+    <style name="bold_text">
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
 </resources>
