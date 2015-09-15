@@ -14,14 +14,14 @@
     <EditTextPreference
         android:key="timeout"
         android:title="@string/timeout_title"
-        android:defaultValue="275"
+        android:defaultValue="300"
         android:inputType="number"
         android:summary="@string/timeout_summary"
         />
     <EditTextPreference
         android:key="calibration"
         android:title="@string/calibration_title"
-        android:defaultValue="0.0"
+        android:defaultValue="123.0"
         android:inputType="number"
         android:numeric="decimal"
         android:summary="@string/calibration_summary"

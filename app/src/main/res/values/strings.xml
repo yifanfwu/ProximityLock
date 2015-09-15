@@ -19,8 +19,10 @@
     their finger on the proximity sensor (usually located adjacent to the earpiece).</string>
     <string name="calibrate_description">While holding a finger on your device\'s proximity sensor, press the button below.</string>
     <string name="calibrate_warning">WARNING: Calibrating without touching the sensor may cause problems.</string>
-    <string name="calibrate_back">PRESS THE BACK ARROW TO CONTINUE.</string>
+    <string name="calibrate_back">TEST YOUR CALIBRATION USING THE INDICATOR ABOVE, OR ELSE RE-CALIBRATE</string>
     <string name="value_description">Proximity sensor value:</string>
+    <string name="locking">LOCKING</string>
+    <string name="not_locking">NOT LOCKING</string>
 
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_calibration">Calibration</string>
@@ -29,5 +31,4 @@
     <string name="persistent_summary">Check the box to enable an app shortcut in your notification shade</string>
     <string name="timeout_summary">Change the time needed for the proximity sensor to lock your device</string>
     <string name="calibration_summary">Change the sensor value that triggers Proximity Lock</string>
-
 </resources>

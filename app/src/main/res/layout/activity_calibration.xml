@@ -32,7 +32,7 @@
         android:layout_below="@id/value_description"
         android:layout_centerHorizontal="true"
         tools:text="@string/hello_world"
-        android:textSize="56sp" />
+        android:textSize="48sp" />
 
     <TextView
         android:id="@+id/description"

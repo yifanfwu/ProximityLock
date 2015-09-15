@@ -38,8 +38,8 @@ public class SensorService extends Service implements SensorEventListener {
         final long start = System.currentTimeMillis();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final int timeout = Integer.parseInt(preferences.getString("timeout", "275"));
-        final float calibration = Float.parseFloat(preferences.getString("calibration","0.0"));
+        final int timeout = Integer.parseInt(preferences.getString("timeout", "300"));
+        final float calibration = Float.parseFloat(preferences.getString("calibration","123.4"));
 
         final Thread t = new Thread(new Runnable() {
             @Override

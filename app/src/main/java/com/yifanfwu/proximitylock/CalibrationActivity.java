@@ -23,11 +23,14 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
     SensorManager sensorManager;
     TextView value;
     float calibration;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calibration);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Intent intent = new Intent(this, SensorService.class);
         stopService(intent);
@@ -38,23 +41,29 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
 
         value = (TextView) findViewById(R.id.value);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (preferences.getString("calibration", "123.0").equals("123.0")) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+
         Button button = (Button) findViewById(R.id.calibrate_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 preferences.edit().putString("calibration", Float.toString(calibration)).apply();
                 Toast.makeText(getApplicationContext(), "Sensor calibrated: " + Float.toString(calibration), Toast.LENGTH_SHORT).show();
 
                 TextView description = (TextView) findViewById(R.id.description);
                 description.setText(getResources().getString(R.string.calibrate_back));
                 description.setTextAppearance(getApplicationContext(), R.style.bold_text);
+
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+                value.setText("TEST ME");
             }
         });
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -87,5 +96,13 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
     public void onSensorChanged(final SensorEvent event) {
         calibration = event.values[0];
         value.setText(Float.toString(calibration));
+
+        if (!preferences.getString("calibration", "123.0").equals("123.0")) {
+            if (preferences.getString("calibration", "123.0").equals(Float.toString(calibration))) {
+                value.setText(getResources().getString(R.string.locking));
+            } else {
+                value.setText(getResources().getString(R.string.not_locking));
+            }
+        }
     }
 }

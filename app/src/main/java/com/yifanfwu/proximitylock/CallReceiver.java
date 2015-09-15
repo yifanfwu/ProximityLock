@@ -32,11 +32,11 @@ public abstract class CallReceiver extends BroadcastReceiver {
     }
 
     //Derived classes should override these to respond to specific events of interest
-    protected void onIncomingCallStarted(Context ctx){}
-    protected void onOutgoingCallStarted(Context ctx){}
-    protected void onIncomingCallEnded(Context ctx){}
-    protected void onOutgoingCallEnded(Context ctx){}
-    protected void onMissedCall(Context ctx){}
+    protected void onIncomingCallStarted(Context context){}
+    protected void onOutgoingCallStarted(Context context){}
+    protected void onIncomingCallEnded(Context context){}
+    protected void onOutgoingCallEnded(Context context){}
+    protected void onMissedCall(Context context){}
 
     //Incoming call:  goes from IDLE to RINGING when it rings, to OFFHOOK when it's answered, to IDLE when its hung up
     //Outgoing call:  goes from IDLE to OFFHOOK when it dials out, to IDLE when hung up
