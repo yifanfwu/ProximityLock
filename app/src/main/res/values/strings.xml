@@ -19,8 +19,8 @@
     their finger on the proximity sensor (usually located adjacent to the earpiece).</string>
     <string name="calibrate_description">While holding a finger on your device\'s proximity sensor, press the button below.</string>
     <string name="calibrate_warning">WARNING: Calibrating without touching the sensor may cause problems.</string>
-    <string name="calibrate_back">TEST YOUR CALIBRATION USING THE INDICATOR ABOVE, OR ELSE RE-CALIBRATE</string>
-    <string name="value_description">Proximity sensor value:</string>
+    <string name="calibrate_back">IF YOUR CALIBRATION IS CORRECT, PRESS THE BACK ARROW. IF NOT, RE-CALIBRATE.</string>
+    <string name="value_description">Test value:</string>
     <string name="locking">LOCKING</string>
     <string name="not_locking">NOT LOCKING</string>
 
