@@ -47,6 +47,12 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onMissedCall(Context context) {
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (preferences.getBoolean("enabled", true)) {
+            Intent intent = new Intent(context, SensorService.class);
+            context.stopService(intent);
+            context.startService(intent);
+        }
     }
 
 }
