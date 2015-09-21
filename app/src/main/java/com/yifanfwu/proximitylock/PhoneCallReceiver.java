@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class PhoneCallReceiver extends CallReceiver {
 
@@ -11,6 +12,7 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onIncomingCallStarted(Context context) {
+        Log.d("incoming", "started");
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (preferences.getBoolean("enabled", true)) {
             Intent intent = new Intent(context, SensorService.class);
@@ -20,6 +22,7 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onOutgoingCallStarted(Context context) {
+        Log.d("outgoing", "started");
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (preferences.getBoolean("enabled", true)) {
             Intent intent = new Intent(context, SensorService.class);
@@ -29,6 +32,7 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onIncomingCallEnded(Context context) {
+        Log.d("incoming", "ended");
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (preferences.getBoolean("enabled", true)) {
             Intent intent = new Intent(context, SensorService.class);
@@ -38,6 +42,7 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onOutgoingCallEnded(Context context) {
+        Log.d("outgoing", "ended");
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (preferences.getBoolean("enabled", true)) {
             Intent intent = new Intent(context, SensorService.class);
@@ -47,6 +52,7 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onMissedCall(Context context) {
+        Log.d("missed call", "??");
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (preferences.getBoolean("enabled", true)) {
             Intent intent = new Intent(context, SensorService.class);

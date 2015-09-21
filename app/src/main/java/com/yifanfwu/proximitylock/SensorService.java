@@ -14,6 +14,7 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 public class SensorService extends Service implements SensorEventListener {
 
@@ -41,14 +42,25 @@ public class SensorService extends Service implements SensorEventListener {
         final int timeout = Integer.parseInt(preferences.getString("timeout", "300"));
         final float calibration = Float.parseFloat(preferences.getString("calibration","123.4"));
 
+        Log.d("sensor value", Float.toString(event.values[0]));
+
         final Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (event.values[0] == calibration) {
-                    if (System.currentTimeMillis() - start > timeout) {
-                        DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
-                        mDPM.lockNow();
-                    }
+//                while (event.values[0] == calibration) {
+//                    if (System.currentTimeMillis() - start > timeout) {
+//                        Log.d("sleep", "now");
+//                        DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
+//                        mDPM.lockNow();
+//                    }
+//                }
+                while (event.values[0] == calibration && System.currentTimeMillis() - start < timeout) {
+                    //do nothing
+                }
+                if (System.currentTimeMillis() - start >= timeout) {
+                    Log.d("sleep", "now");
+                    DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
+                    mDPM.lockNow();
                 }
             }
         });
@@ -81,7 +93,6 @@ public class SensorService extends Service implements SensorEventListener {
             Notification barNotif = builder.build();
             this.startForeground(1, barNotif);
         }
-
         return Service.START_STICKY;
     }
 }
