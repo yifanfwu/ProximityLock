@@ -15,7 +15,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction()) && preferences.getBoolean("enabled", true)) {
+        if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction()) && preferences.getBoolean("enabled", false)) {
             Log.d("Boot completed: ", "success");
             Intent startIntent = new Intent(context, SensorService.class);
             context.startService(startIntent);

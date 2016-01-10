@@ -4,7 +4,7 @@
         android:key="enabled"
         android:title="@string/enabled_title"
         android:summary="@string/enabled_summary"
-        android:defaultValue="true"
+        android:defaultValue="false"
         />
     <CheckBoxPreference
         android:key="persistent"
