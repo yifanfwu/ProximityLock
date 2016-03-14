@@ -44,4 +44,13 @@
         android:id="@+id/calibrate"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        android:id="@+id/test_button"
+        android:layout_below="@+id/enable"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp" />
+
 </RelativeLayout>

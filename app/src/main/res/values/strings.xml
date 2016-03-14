@@ -31,4 +31,11 @@
     <string name="persistent_summary">Check the box to enable an app shortcut in your notification shade</string>
     <string name="timeout_summary">Change the time needed for the proximity sensor to lock your device</string>
     <string name="calibration_summary">Change the sensor value that triggers Proximity Lock</string>
+    <string name="title_activity_instruction">InstructionActivity</string>
+
+    <string name="intro_blurb">Every Android device is unique, so we need you to calibrate your proximity sensor.</string>
+    <string name="point_blurb">The proximity sensor is usually located next to your device\'s earpiece.</string>
+    <string name="locate_blurb">Use this screen to locate your proximity sensor.\n(This is the sensor\'s value in real-time)</string>
+    <string name="calibrate_blurb">While touching the proximity sensor, press the calibrate button.</string>
+
 </resources>

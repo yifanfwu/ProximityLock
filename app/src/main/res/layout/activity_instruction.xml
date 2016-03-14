@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/primary"
+    tools:context="com.yifanfwu.proximitylock.InstructionActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicator"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="48dp"
+        app:ci_drawable="@drawable/white_radius"
+        app:ci_drawable_unselected="@drawable/translucent_white_radius"/>
+
+</FrameLayout>
