@@ -6,7 +6,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 
@@ -16,8 +15,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -34,7 +31,6 @@ public class InstructionActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private CircleIndicator indicator;
-    static FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,30 +45,9 @@ public class InstructionActivity extends AppCompatActivity {
         this.viewPager.setAdapter(this.sectionsPagerAdapter);
 
         this.indicator.setViewPager(this.viewPager);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_instruction, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        Intent intent = new Intent(this, SensorService.class);
+        stopService(intent);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -118,7 +93,7 @@ public class InstructionActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_instruction, container, false);
             ImageView imageView = (ImageView) rootView.findViewById(R.id.graphic);
-            imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.instructions1));
             TextView textView = (TextView) rootView.findViewById(R.id.blurb);
             textView.setText(getResources().getString(R.string.intro_blurb));
             return rootView;
@@ -139,7 +114,7 @@ public class InstructionActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_instruction, container, false);
             ImageView imageView = (ImageView) rootView.findViewById(R.id.graphic);
-            imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.instructions2));
             TextView textView = (TextView) rootView.findViewById(R.id.blurb);
             textView.setText(getResources().getString(R.string.point_blurb));
             return rootView;
@@ -177,6 +152,18 @@ public class InstructionActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onResume() {
+            super.onResume();
+            this.sensorManager.registerListener(this, this.proximitySensor, SensorManager.SENSOR_DELAY_FASTEST);
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+            this.sensorManager.unregisterListener(this);
+        }
+
+        @Override
         public void onSensorChanged(SensorEvent event) {
             this.sensorValue.setText(Float.toString(event.values[0]));
         }
@@ -201,6 +188,7 @@ public class InstructionActivity extends AppCompatActivity {
         float calibration;
         SharedPreferences preferences;
         Button calibrateButton;
+        FloatingActionButton fab;
 
         public CalibrateFragment() {
         }
@@ -218,16 +206,10 @@ public class InstructionActivity extends AppCompatActivity {
             this.sensorValue = (TextView) rootView.findViewById(R.id.sensor_value);
             this.sensorValue.setTextColor(getResources().getColor(R.color.white_text));
 
+            this.fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+
             TextView blurb = (TextView) rootView.findViewById(R.id.blurb);
             blurb.setText(getResources().getString(R.string.calibrate_blurb));
-
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                }
-            });
 
             this.calibrateButton = (Button) rootView.findViewById(R.id.calibrate_button);
             this.calibrateButton.setVisibility(View.VISIBLE);
@@ -246,12 +228,32 @@ public class InstructionActivity extends AppCompatActivity {
                 }
             });
 
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    preferences.edit().putBoolean(Strings.WELCOME_KEY, false).apply();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
 
             this.sensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
             this.proximitySensor = this.sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
             this.sensorManager.registerListener(this, this.proximitySensor, SensorManager.SENSOR_DELAY_FASTEST);
 
             return rootView;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            this.sensorManager.registerListener(this, this.proximitySensor, SensorManager.SENSOR_DELAY_FASTEST);
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+            this.sensorManager.unregisterListener(this);
         }
 
         @Override

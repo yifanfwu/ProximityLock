@@ -1,70 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.yifanfwu.proximitylock.CalibrationActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/primary"
-        android:elevation="4dp"
-        app:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        />
-
-    <TextView
-        android:id="@+id/value_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:text="@string/value_description"
-        android:layout_marginTop="40dp"/>
-
-    <TextView
-        android:id="@+id/value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/value_description"
-        android:layout_centerHorizontal="true"
-        tools:text="@string/hello_world"
-        android:textSize="48sp" />
-
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:maxWidth="256dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/value"
-        android:text="@string/calibrate_description"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="40dp"/>
-
-    <TextView
-        android:id="@+id/warning"
-        android:layout_width="wrap_content"
-        android:maxWidth="256dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/description"
-        android:text="@string/calibrate_warning"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_red_dark"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="16dp"/>
-
-    <Button
-        android:id="@+id/calibrate_button"
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="40dp"
-        android:text="@string/button_calibrate" />
+                android:id="@+id/calibrate_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/primary">
 
 </RelativeLayout>

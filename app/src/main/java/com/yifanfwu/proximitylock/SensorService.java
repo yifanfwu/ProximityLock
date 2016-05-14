@@ -12,9 +12,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 public class SensorService extends Service implements SensorEventListener {
 
@@ -47,7 +45,11 @@ public class SensorService extends Service implements SensorEventListener {
             @Override
             public void run() {
                 while (event.values[0] == calibration && System.currentTimeMillis() - start < timeout) {
-                    //do nothing
+                    try {
+                        Thread.sleep(10L);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
                 if (System.currentTimeMillis() - start >= timeout) {
                     DevicePolicyManager devicePolicyManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);

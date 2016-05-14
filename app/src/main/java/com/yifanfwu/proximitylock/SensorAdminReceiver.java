@@ -3,7 +3,6 @@ package com.yifanfwu.proximitylock;
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 public class SensorAdminReceiver extends DeviceAdminReceiver {
 

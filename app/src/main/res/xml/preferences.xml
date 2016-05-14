@@ -21,7 +21,7 @@
     <EditTextPreference
         android:key="calibration"
         android:title="@string/calibration_title"
-        android:defaultValue="123.0"
+        android:defaultValue="123.4"
         android:inputType="number"
         android:numeric="decimal"
         android:summary="@string/calibration_summary"

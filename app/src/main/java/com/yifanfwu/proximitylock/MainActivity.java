@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         this.devicePolicyManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
         this.deviceAdminSample = new ComponentName(this, SensorAdminReceiver.class);
 
-        boolean active = this.devicePolicyManager.isAdminActive(this.deviceAdminSample);
-        if (!active) { // Without permission
+        boolean admin = this.devicePolicyManager.isAdminActive(this.deviceAdminSample);
+        if (!admin) { // Without permission
             Intent adminIntent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
             adminIntent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, deviceAdminSample);
             startActivityForResult(adminIntent, 1);
@@ -41,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
         this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, MODE_PRIVATE);
 
         if (this.preferences.getBoolean(Strings.WELCOME_KEY, true)) {
-            this.preferences.edit().putBoolean(Strings.WELCOME_KEY, false).apply();
-            Intent intent = new Intent (this, CalibrationActivity.class);
+            Intent intent = new Intent (this, InstructionActivity.class);
             startActivity(intent);
         }
 
@@ -87,15 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Button test = (Button) findViewById(R.id.test_button);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, InstructionActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -110,13 +100,5 @@ public class MainActivity extends AppCompatActivity {
             button.setText(getResources().getString(R.string.button_enable));
             stopService(new Intent(getApplicationContext(), SensorService.class));
         }
-
-//        if (this.preferences.getBoolean(Strings.PERSISTENT_KEY, true) && this.preferences.getBoolean(Strings.ENABLED_KEY, false)) {
-//            stopService(new Intent(getApplicationContext(), SensorService.class));
-//            startService(new Intent(getApplicationContext(), SensorService.class));
-//        } else if (!this.preferences.getBoolean(Strings.PERSISTENT_KEY, true) && this.preferences.getBoolean(Strings.ENABLED_KEY, false)) {
-//            stopService(new Intent(getApplicationContext(), SensorService.class));
-//            startService(new Intent(getApplicationContext(), SensorService.class));
-//        }
     }
 }
