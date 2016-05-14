@@ -13,10 +13,9 @@ public class BootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction()) && preferences.getBoolean("enabled", false)) {
-            Log.d("Boot completed: ", "success");
+        if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction()) && preferences.getBoolean(Strings.ENABLED_KEY, false)) {
             Intent startIntent = new Intent(context, SensorService.class);
             context.startService(startIntent);
         }

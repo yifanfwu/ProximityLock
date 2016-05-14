@@ -18,8 +18,9 @@ import android.util.Log;
 
 public class SensorService extends Service implements SensorEventListener {
 
-    Sensor proximitySensor;
-    SensorManager sensorManager;
+    private Sensor proximitySensor;
+    private SensorManager sensorManager;
+    private SharedPreferences preferences;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -38,29 +39,19 @@ public class SensorService extends Service implements SensorEventListener {
     public void onSensorChanged(final SensorEvent event) {
         final long start = System.currentTimeMillis();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final int timeout = Integer.parseInt(preferences.getString("timeout", "300"));
-        final float calibration = Float.parseFloat(preferences.getString("calibration","123.4"));
-
-        Log.d("sensor value", Float.toString(event.values[0]));
+        this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, MODE_PRIVATE);
+        final int timeout = Integer.parseInt(preferences.getString(Strings.TIMEOUT_KEY, "300"));
+        final float calibration = Float.parseFloat(preferences.getString(Strings.CALIBRATION_KEY, "123.4"));
 
         final Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-//                while (event.values[0] == calibration) {
-//                    if (System.currentTimeMillis() - start > timeout) {
-//                        Log.d("sleep", "now");
-//                        DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
-//                        mDPM.lockNow();
-//                    }
-//                }
                 while (event.values[0] == calibration && System.currentTimeMillis() - start < timeout) {
                     //do nothing
                 }
                 if (System.currentTimeMillis() - start >= timeout) {
-                    Log.d("sleep", "now");
-                    DevicePolicyManager mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
-                    mDPM.lockNow();
+                    DevicePolicyManager devicePolicyManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
+                    devicePolicyManager.lockNow();
                 }
             }
         });
@@ -73,12 +64,12 @@ public class SensorService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        this.proximitySensor = this.sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        this.sensorManager.registerListener(this, this.proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final boolean persistent = preferences.getBoolean("persistent", true);
+        this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, MODE_PRIVATE);
+        boolean persistent = this.preferences.getBoolean(Strings.PERSISTENT_KEY, true);
 
         if (persistent) {
             Intent temp = new Intent(SensorService.this, MainActivity.class);

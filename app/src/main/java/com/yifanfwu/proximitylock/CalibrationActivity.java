@@ -19,32 +19,32 @@ import android.widget.Toast;
 
 public class CalibrationActivity extends AppCompatActivity implements SensorEventListener {
 
-    Sensor proximitySensor;
-    SensorManager sensorManager;
-    TextView value;
-    float calibration;
-    SharedPreferences preferences;
+    private Sensor proximitySensor;
+    private SensorManager sensorManager;
+    private TextView value;
+    private float calibration;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calibration);
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, MODE_PRIVATE);
 
         Intent intent = new Intent(this, SensorService.class);
         stopService(intent);
 
-        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        this.sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        this.proximitySensor = this.sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        this.sensorManager.registerListener(this, this.proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-        value = (TextView) findViewById(R.id.value);
+        this.value = (TextView) findViewById(R.id.value);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (preferences.getString("calibration", "123.0").equals("123.0")) {
+        if (this.preferences.getString(Strings.CALIBRATION_KEY, "123.0").equals("123.0")) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
 
@@ -52,7 +52,7 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                preferences.edit().putString("calibration", Float.toString(calibration)).apply();
+                preferences.edit().putString(Strings.CALIBRATION_KEY, Float.toString(calibration)).apply();
                 Toast.makeText(getApplicationContext(), "Sensor calibrated: " + Float.toString(calibration), Toast.LENGTH_SHORT).show();
 
                 TextView description = (TextView) findViewById(R.id.description);
@@ -94,14 +94,14 @@ public class CalibrationActivity extends AppCompatActivity implements SensorEven
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
-        calibration = event.values[0];
-        value.setText(Float.toString(calibration));
+        this.calibration = event.values[0];
+        this.value.setText(Float.toString(calibration));
 
-        if (!preferences.getString("calibration", "123.0").equals("123.0")) {
-            if (preferences.getString("calibration", "123.0").equals(Float.toString(calibration))) {
-                value.setText(getResources().getString(R.string.locking));
+        if (!this.preferences.getString(Strings.CALIBRATION_KEY, "123.0").equals("123.0")) {
+            if (this.preferences.getString(Strings.CALIBRATION_KEY, "123.0").equals(Float.toString(this.calibration))) {
+                this.value.setText(getResources().getString(R.string.locking));
             } else {
-                value.setText(getResources().getString(R.string.not_locking));
+                this.value.setText(getResources().getString(R.string.not_locking));
             }
         }
     }

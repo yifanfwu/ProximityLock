@@ -2,21 +2,22 @@
     <string name="app_name">Proximity Lock</string>
     <string name="settings_title">Settings</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     <string name="button_disable">DISABLE</string>
     <string name="button_enable">ENABLE</string>
     <string name="button_calibrate">CALIBRATE</string>
     <string name="calibrate">CALIBRATE</string>
+    <string name="button_finish">FINISH</string>
+    <string name="test_me">TEST ME</string>
+    <string name="no_value">NO VALUE</string>
 
     <string name="enabled_title">Proximity Lock enabled</string>
     <string name="timeout_title">Timeout (in milliseconds)</string>
     <string name="persistent_title">Persistent notification</string>
     <string name="calibration_title">Calibration</string>
 
-    <string name="description">Proximity Lock allows the user to lock their device by simply tapping
-    their finger on the proximity sensor (usually located adjacent to the earpiece).</string>
+    <string name="description">Just tap it.</string>
     <string name="calibrate_description">While holding a finger on your device\'s proximity sensor, press the button below.</string>
     <string name="calibrate_warning">WARNING: Calibrating without touching the sensor may cause problems.</string>
     <string name="calibrate_back">IF YOUR CALIBRATION IS CORRECT, PRESS THE BACK ARROW. IF NOT, RE-CALIBRATE.</string>

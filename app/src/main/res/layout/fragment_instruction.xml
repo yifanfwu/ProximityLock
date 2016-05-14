@@ -26,6 +26,7 @@
         tools:text="Every Android device is unique, so we need you to calibrate your proximity sensor."
         android:layout_marginLeft="36dp"
         android:layout_marginRight="36dp"
-        android:layout_marginBottom="120dp" />
+        android:layout_marginBottom="120dp"
+        android:textColor="@color/white_text" />
 
 </RelativeLayout>

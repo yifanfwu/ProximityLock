@@ -8,13 +8,12 @@ import android.util.Log;
 
 public class PhoneCallReceiver extends CallReceiver {
 
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
 
     @Override
     protected void onIncomingCallStarted(Context context) {
-        Log.d("incoming", "started");
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean("enabled", true)) {
+        this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        if (this.preferences.getBoolean(Strings.ENABLED_KEY, true)) {
             Intent intent = new Intent(context, SensorService.class);
             context.stopService(intent);
         }
@@ -22,9 +21,8 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onOutgoingCallStarted(Context context) {
-        Log.d("outgoing", "started");
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean("enabled", true)) {
+        this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        if (this.preferences.getBoolean(Strings.ENABLED_KEY, true)) {
             Intent intent = new Intent(context, SensorService.class);
             context.stopService(intent);
         }
@@ -32,9 +30,8 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onIncomingCallEnded(Context context) {
-        Log.d("incoming", "ended");
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean("enabled", true)) {
+        this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        if (this.preferences.getBoolean(Strings.ENABLED_KEY, true)) {
             Intent intent = new Intent(context, SensorService.class);
             context.startService(intent);
         }
@@ -42,9 +39,8 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onOutgoingCallEnded(Context context) {
-        Log.d("outgoing", "ended");
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean("enabled", true)) {
+        this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        if (this.preferences.getBoolean(Strings.ENABLED_KEY, true)) {
             Intent intent = new Intent(context, SensorService.class);
             context.startService(intent);
         }
@@ -52,9 +48,8 @@ public class PhoneCallReceiver extends CallReceiver {
 
     @Override
     protected void onMissedCall(Context context) {
-        Log.d("missed call", "??");
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean("enabled", true)) {
+        this.preferences = ProximityApp.getAppContext().getSharedPreferences(Strings.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        if (this.preferences.getBoolean(Strings.ENABLED_KEY, true)) {
             Intent intent = new Intent(context, SensorService.class);
             context.stopService(intent);
             context.startService(intent);

@@ -1,6 +1,10 @@
 package com.yifanfwu.proximitylock;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.settings_container, new SettingsFragment()).commit();
     }
 
     @Override
@@ -29,26 +32,43 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-        return super.onOptionsItemSelected(item);
-    }
+        private static Context context;
 
-    public static class SettingsFragment extends PreferenceFragment {
         @Override
         public void onCreate(final Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
+
+            context = ProximityApp.getAppContext();
+
             addPreferencesFromResource(R.xml.preferences);
+            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
+                case Strings.ENABLED_KEY:
+                    if (sharedPreferences.getBoolean(key, false)) {
+                        context.startService(new Intent(context, SensorService.class));
+                    } else {
+                        context.stopService(new Intent(context, SensorService.class));
+                    }
+                    break;
+                case Strings.PERSISTENT_KEY:
+                    if (sharedPreferences.getBoolean(Strings.ENABLED_KEY, false)) {
+                        // call onStartCommand again
+                        context.stopService(new Intent(context, SensorService.class));
+                        context.startService(new Intent(context, SensorService.class));
+                    }
+            }
         }
     }
 }

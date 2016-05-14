@@ -10,7 +10,7 @@
     tools:context="com.yifanfwu.proximitylock.InstructionActivity">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/container"
+        android:id="@+id/settings_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -22,5 +22,14 @@
         android:layout_marginBottom="48dp"
         app:ci_drawable="@drawable/white_radius"
         app:ci_drawable_unselected="@drawable/translucent_white_radius"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_check"
+        android:visibility="gone"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin"/>
 
 </FrameLayout>
